@@ -52,11 +52,11 @@ export default {
   },
   methods: {
 	  getPlayedCivsStats: async function(){
-		  let {data} = await axios.get("http://localhost:9090/getPlayedCivsStatsChart");
+		  let {data} = await axios.get("http://aoestats.tk:9090/getPlayedCivsStatsChart");
 		  this.playedCivChartData = data;
 	  },
 	  getPickedCivChartData: async function(){
-		  let {data} = await axios.get("http://localhost:9090/getPickedCivsStatsChart");
+		  let {data} = await axios.get("http://aoestats.tk:9090/getPickedCivsStatsChart");
 		  this.pickedCivChartData = data;
 	  },
 	  getTopCharts: async function() {

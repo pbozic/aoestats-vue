@@ -63,7 +63,7 @@ export default {
   },
   methods: {
 	  getTournament: async function() {
-			let tournament = await this.instance.get("http://127.0.0.1:9090/tournament");
+			let tournament = await this.instance.get("http://aoestats.tk:9090/tournament");
 		  this.tournament = tournament.data;
 			this.selectedRound = this.tournament.rounds[this.tournament.rounds.length -1];
 		},
@@ -81,7 +81,7 @@ export default {
 		  return false;
 	  },
 		saveRound: async function() {
- 			let result = await axios.post("http://localhost:9090/addRound", {round: this.newRound});
+ 			let result = await axios.post("http://aoestats.tk:9090/addRound", {round: this.newRound});
 			 this.tournament = result.data;
 			 if(this.selectedRound == null) {
 				 this.selectedRound = this.tournament.rounds[this.tournament.rounds.length -1];
