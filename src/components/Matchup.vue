@@ -136,7 +136,7 @@ import "vue-multiselect/dist/vue-multiselect.min.css";
 
 export default {
   name: 'Matchup',
-  props: ["matchup", "round"],
+  props: ["matchup", "round", "admin"],
   data () {
     return {
        detail: false,
@@ -192,18 +192,18 @@ export default {
       }
         newMatchup.players.push(player);
       }
-      let result = await axios.post("http://localhost:9090/addMatchup", {matchup: newMatchup, round: this.round._id});
+      let result = await axios.post("http://aoestats.tk:9090/addMatchup", {matchup: newMatchup, round: this.round._id});
       console.log(result);
       this.$emit("updateTournament", result.data);
       this.openModal = false;
     },
     getPlayers: async function() {
-      let {data} = await axios.get("http://localhost:9090/getPlayers");
+      let {data} = await axios.get("http://aoestats.tk:9090/getPlayers");
       console.log(data);
       this.players = data;
     },
     getCivs: async function() {
-      let {data} = await axios.get("http://localhost:9090/getCivs");
+      let {data} = await axios.get("http://aoestats.tk:9090/getCivs");
       console.log(data);
       this.civs = data;
     },
@@ -224,7 +224,7 @@ export default {
       }
       let matchupId = this.matchup._id;
       let roundId = this.round._id;
-      let result = await axios.post("http://localhost:9090/addMatch", {matchup: matchupId, round: roundId, game: game});
+      let result = await axios.post("http://aoestats.tk:9090/addMatch", {matchup: matchupId, round: roundId, game: game});
       console.log(result);
       this.$emit("updateTournament", result.data);
 
