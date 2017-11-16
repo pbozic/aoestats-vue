@@ -5,12 +5,14 @@
 			 <div class="tabs">
 				<ul>
 					<li :class="{'is-active': round._id == selectedRound._id}" v-for="(round, i) of tournament.rounds" :key="round._id" @click="selectRound(i)"><a>{{round.name}}</a></li>
+					<li @click="openAddRoundModal = true"><a>+ Add Round</a></li>
 				</ul>
 			</div>
 
 			<template v-if="selectedRound != null">
 				<h3 class="title is-3">Matchups:</h3>
-			  <Matchup @updateTournament="getTournament()" :admin="admin" :matchup="matchup" :round="selectedRound" v-for="matchup of selectedRound.matchups" :key="matchup._id" v-if="selectedRound.matchups != null"></Matchup>
+			  <Matchup @updateTournament="getTournament()"  :admin="admin" :matchup="matchup" :round="selectedRound" v-for="matchup of selectedRound.matchups" :key="matchup._id" v-if="selectedRound.matchups != null"></Matchup>
+				<Matchup @updateTournament="getTournament()"  :admin="admin" :matchup="{type: 'addMatchup'}" :round="selectedRound"></Matchup>
 			</template>
 		</div>
 		<div class="modal" :class="{'is-active': openAddRoundModal}">
@@ -45,7 +47,7 @@ export default {
   name: 'Home',
   data () {
     return {
-			admin: false,
+			admin: true,
 			msg: 'Welcome to Your Vue.js App',
 			tournament: null,
 			instance: axios.create({

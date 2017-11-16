@@ -26,7 +26,7 @@
       <div class="tabs m0">
         <ul>
           <li @click="activeGame = game" :class="{'is-active': activeGame._id == game._id}" v-for="(game, i) of matchup.matches" v-if="matchup.matches.length > 0 && game != null"><a>Game {{i + 1}}</a></li>
-          <li @click="addGame(); openGameModal = true"><a @click="openGameModal = true">+ Add Game</a></li>
+          <li @click="addGame(); openGameModal = true" v-if="admin"><a @click="openGameModal = true">+ Add Game</a></li>
         </ul>
       </div>
       <div class="content" v-if="activeGame">
@@ -192,18 +192,18 @@ export default {
       }
         newMatchup.players.push(player);
       }
-      let result = await axios.post("http://aoestats.tk:9090/addMatchup", {matchup: newMatchup, round: this.round._id});
+      let result = await axios.post("http://localhost:9090/addMatchup", {matchup: newMatchup, round: this.round._id});
       console.log(result);
       this.$emit("updateTournament", result.data);
       this.openModal = false;
     },
     getPlayers: async function() {
-      let {data} = await axios.get("http://aoestats.tk:9090/getPlayers");
+      let {data} = await axios.get("http://localhost:9090/getPlayers");
       console.log(data);
       this.players = data;
     },
     getCivs: async function() {
-      let {data} = await axios.get("http://aoestats.tk:9090/getCivs");
+      let {data} = await axios.get("http://localhost:9090/getCivs");
       console.log(data);
       this.civs = data;
     },
@@ -224,7 +224,7 @@ export default {
       }
       let matchupId = this.matchup._id;
       let roundId = this.round._id;
-      let result = await axios.post("http://aoestats.tk:9090/addMatch", {matchup: matchupId, round: roundId, game: game});
+      let result = await axios.post("http://localhost:9090/addMatch", {matchup: matchupId, round: roundId, game: game});
       console.log(result);
       this.$emit("updateTournament", result.data);
 
